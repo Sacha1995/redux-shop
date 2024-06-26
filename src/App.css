@@ -1,0 +1,25 @@
+.products {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.productCard {
+  border: grey 3px solid;
+  margin: 10px;
+  padding: 20px;
+  max-width: 200px;
+}
+
+img {
+  height: 100px;
+  display: block;
+  margin: 0px auto;
+}
+
+.view {
+  display: block;
+}
+
+.noview {
+  display: none;
+}
