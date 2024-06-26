@@ -1,1 +1,5 @@
-export const initialState = { searchStr: "" };
+export const initialState = {
+  searchStr: "",
+  select: "Original",
+  shoppingCard: [],
+};

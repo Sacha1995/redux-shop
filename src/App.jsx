@@ -2,9 +2,10 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import "./App.css";
+import { getLocalStorage } from "./Controllers";
 import Header from "./Header/Header";
 import Products from "./Products/Products";
-import { SET_PRODUCTS } from "./redux/types";
+import { REMEMBER_SHOPPING, SET_PRODUCTS } from "./redux/types";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,13 @@ const App = () => {
   };
 
   useEffect(() => {
-    getApiData();
+    const storedShoppingCart = getLocalStorage("shoppingCard");
+    const storedData = getLocalStorage("data");
+    if (storedData) {
+      dispatch({ type: REMEMBER_SHOPPING, storedShoppingCart, storedData });
+    } else {
+      getApiData();
+    }
   }, []);
 
   return (

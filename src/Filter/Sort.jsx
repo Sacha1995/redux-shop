@@ -2,21 +2,29 @@ import { useDispatch } from "react-redux";
 import FormElements from "../Reusable code/FormElements";
 import { FORM_EVENT } from "../redux/types";
 
-const Search = () => {
+const Sort = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="search">
+    <div className="dropdown">
       <FormElements
-        type="text"
-        id="searchStr"
+        type="select"
+        label="Order:"
+        id="select"
+        name="order"
         callback={(e) => {
           dispatch({ type: FORM_EVENT, e });
         }}
-        placeholder="Search movie"
+        options={[
+          "Original",
+          "A to Z",
+          "Z to A",
+          "Price: low to high",
+          "Price: high to low",
+        ]}
       />
     </div>
   );
 };
 
-export default Search;
+export default Sort;

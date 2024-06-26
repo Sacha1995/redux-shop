@@ -23,7 +23,6 @@ const FormElements = ({
       return (
         <>
           <label htmlFor={id}>{label}</label>
-          <br />
           {error && <p className="error">{error}</p>}
           <input
             type={type}
@@ -33,14 +32,13 @@ const FormElements = ({
             className={className}
             name={name}
           />
-          <br />
         </>
       );
 
     case "select":
       return (
         <>
-          <label htmlFor={name}>{label} </label> <br />
+          <label htmlFor={name}>{label} </label>
           {error && <p className="error">{error}</p>}
           <select id={id} name={name} onChange={callback} className={className}>
             {options.map((option) => {
@@ -72,7 +70,6 @@ const FormElements = ({
                   name={name}
                 />
                 <label htmlFor={checkbox}>{checkbox}</label>
-                <br />
               </>
             );
           })}
