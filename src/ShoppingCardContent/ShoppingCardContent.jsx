@@ -1,5 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { CHANGE_CONTENT_SHOPPINGCARD } from "../redux/types";
+import {
+  CHANGE_CONTENT_SHOPPINGCARD,
+  DECREMENT,
+  INCREMENT,
+} from "../redux/types";
 import Description from "./Description";
 import Total from "./Total";
 
@@ -19,18 +23,42 @@ const ShoppingCardContent = () => {
     <div className="shoppingCardContent">
       <Description />
       {shoppingCard.map((product) => {
+        const { id, title, quantity, price } = product;
         return (
-          <div key={product.id} className="shoppingCardItem">
-            <p>{product.quantity}</p>
-            <p className="shoppingCardItemTitle">{product.title}</p>
-            <p>£{Number(product.price).toFixed(2)}</p>
-            <p>£{Number(product.price * product.quantity).toFixed(2)}</p>
+          <div key={id} className="shoppingCardItem">
+            <p
+              onClick={() => {
+                dispatch({
+                  type: DECREMENT,
+                  id,
+                });
+              }}
+            >
+              {" "}
+              -{" "}
+            </p>
+            <p>{quantity}</p>
+            <p
+              onClick={() => {
+                dispatch({
+                  type: INCREMENT,
+                  id,
+                });
+              }}
+            >
+              {" "}
+              +{" "}
+            </p>
+
+            <p className="shoppingCardItemTitle">{title}</p>
+            <p>£{Number(price).toFixed(2)}</p>
+            <p>£{Number(price * quantity).toFixed(2)}</p>
             <img
               src="./bin.svg"
               alt="delete button"
               className="delete"
               onClick={() => {
-                dispatch({ type: CHANGE_CONTENT_SHOPPINGCARD, id: product.id });
+                dispatch({ type: CHANGE_CONTENT_SHOPPINGCARD, id: id });
               }}
             />
           </div>
