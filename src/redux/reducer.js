@@ -60,6 +60,9 @@ export function reducer(state = initialState, action) {
 
       if (indexProduct !== -1) {
         copy[indexProduct].quantity = copy[indexProduct].quantity - 1;
+        if (copy[indexProduct].quantity === 0) {
+          copy[indexProduct].inCard = false;
+        }
       }
 
       setLocalStorage("data", copy);
