@@ -41,7 +41,7 @@ const Products = () => {
           <div className="productCard" key={id}>
             <h2>{title}</h2>
             <img src={image} alt={title} />
-            <p>£{price}</p>
+            <p>£{Number(price).toFixed(2)}</p>
             <p
               className="description"
               onClick={() => dispatch({ type: TOGGLE_DESCRIPTION, id: id })}

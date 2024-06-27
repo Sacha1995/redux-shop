@@ -1,4 +1,4 @@
-import { setLocalStorage } from "../Controllers";
+import { getIndex, setLocalStorage } from "../Controllers";
 import { initialState } from "./initialState";
 import {
   ADD_TO_SHOPPINGCARD,
@@ -22,9 +22,7 @@ export function reducer(state = initialState, action) {
     }
     case TOGGLE_DESCRIPTION: {
       const copy = [...state.products];
-      const indexOf = copy.findIndex((product) => {
-        return product.id === action.id;
-      });
+      const indexOf = getIndex(copy, action.id);
       copy[indexOf].viewDescription = !copy[indexOf].viewDescription;
       return { ...state, products: copy };
     }
@@ -45,9 +43,7 @@ export function reducer(state = initialState, action) {
     case ADD_TO_SHOPPINGCARD: {
       let copy = [...state.products];
       let _shoppingCard = [...state.shoppingCard];
-      const indexOf = copy.findIndex((product) => {
-        return product.id === action.id;
-      });
+      const indexOf = getIndex(copy, action.id);
 
       if (indexOf !== -1) {
         const selectedProduct = copy[indexOf];
@@ -68,13 +64,8 @@ export function reducer(state = initialState, action) {
     case DELETE_ITEM: {
       let _shoppingCard = [...state.shoppingCard];
       let copy = [...state.products];
-      const indexCard = _shoppingCard.findIndex((product) => {
-        return product.id === action.id;
-      });
-
-      const indexProduct = copy.findIndex((product) => {
-        return product.id === action.id;
-      });
+      const indexCard = getIndex(_shoppingCard, action.id);
+      const indexProduct = getIndex(copy, action.id);
 
       _shoppingCard.splice(indexCard, 1);
       copy[indexProduct].inCard = !copy[indexProduct].inCard;
@@ -86,13 +77,9 @@ export function reducer(state = initialState, action) {
     case DECREMENT: {
       let copy = [...state.products];
       let _shoppingCard = [...state.shoppingCard];
-      const indexCard = _shoppingCard.findIndex((product) => {
-        return product.id === action.id;
-      });
+      const indexCard = getIndex(_shoppingCard, action.id);
+      const indexProduct = getIndex(copy, action.id);
 
-      const indexProduct = copy.findIndex((product) => {
-        return product.id === action.id;
-      });
       if (indexProduct !== -1) {
         copy[indexProduct].quantity = copy[indexProduct].quantity - 1;
       }
@@ -107,13 +94,9 @@ export function reducer(state = initialState, action) {
     case INCREMENT: {
       let copy = [...state.products];
       let _shoppingCard = [...state.shoppingCard];
-      const indexCard = _shoppingCard.findIndex((product) => {
-        return product.id === action.id;
-      });
+      const indexCard = getIndex(_shoppingCard, action.id);
+      const indexProduct = getIndex(copy, action.id);
 
-      const indexProduct = copy.findIndex((product) => {
-        return product.id === action.id;
-      });
       if (indexProduct !== -1) {
         copy[indexProduct].quantity = copy[indexProduct].quantity + 1;
       }

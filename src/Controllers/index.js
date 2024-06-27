@@ -42,3 +42,10 @@ export function getQuantity(id, products) {
   }
   return quantity;
 }
+
+export function getIndex(data, id) {
+  const indexOf = data.findIndex((item) => {
+    return item.id === id;
+  });
+  return indexOf;
+}
