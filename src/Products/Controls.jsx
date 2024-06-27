@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import Button from "../Reusable code/Button";
-import { ADD_TO_SHOPPINGCARD, DELETE_ITEM } from "../redux/types";
+import { CHANGE_CONTENT_SHOPPINGCARD } from "../redux/types";
 import Quantity from "./Quantity";
 
 const Controls = ({ inCard, id }) => {
@@ -13,7 +13,7 @@ const Controls = ({ inCard, id }) => {
         text={inCard ? "Remove from card" : "Add to card"}
         onClick={() => {
           dispatch({
-            type: inCard ? DELETE_ITEM : ADD_TO_SHOPPINGCARD,
+            type: CHANGE_CONTENT_SHOPPINGCARD,
             id: id,
           });
         }}

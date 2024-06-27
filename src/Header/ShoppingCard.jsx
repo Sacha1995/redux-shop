@@ -4,8 +4,12 @@ import ShoppingCardContent from "../ShoppingCardContent/ShoppingCardContent";
 
 const ShoppingCard = () => {
   const dispatch = useDispatch();
-  const shoppingCard = useSelector((state) => state.shoppingCard);
+  const products = useSelector((state) => state.products);
   const viewShoppingCard = useSelector((state) => state.viewShoppingCard);
+
+  let shoppingCard = products.filter((product) => {
+    return product.inCard;
+  });
 
   return (
     <div

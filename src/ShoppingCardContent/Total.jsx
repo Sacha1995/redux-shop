@@ -2,7 +2,11 @@ import { useSelector } from "react-redux";
 import { calculateTotal } from "../Controllers";
 
 const Total = () => {
-  const shoppingCard = useSelector((state) => state.shoppingCard);
+  const products = useSelector((state) => state.products);
+
+  let shoppingCard = products.filter((product) => {
+    return product.inCard;
+  });
 
   const total = calculateTotal(shoppingCard);
 

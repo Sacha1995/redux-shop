@@ -16,10 +16,9 @@ const App = () => {
   };
 
   useEffect(() => {
-    const storedShoppingCart = getLocalStorage("shoppingCard");
     const storedData = getLocalStorage("data");
     if (storedData) {
-      dispatch({ type: REMEMBER_SHOPPING, storedShoppingCart, storedData });
+      dispatch({ type: REMEMBER_SHOPPING, storedData });
     } else {
       getApiData();
     }

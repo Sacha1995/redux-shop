@@ -1,9 +1,8 @@
 import { getIndex, setLocalStorage } from "../Controllers";
 import { initialState } from "./initialState";
 import {
-  ADD_TO_SHOPPINGCARD,
+  CHANGE_CONTENT_SHOPPINGCARD,
   DECREMENT,
-  DELETE_ITEM,
   FORM_EVENT,
   INCREMENT,
   REMEMBER_SHOPPING,
@@ -17,7 +16,7 @@ export function reducer(state = initialState, action) {
     case SET_PRODUCTS: {
       const copy = { ...state };
       copy.products = action.data;
-      copy.filtered = action.data;
+      console.log(copy);
       return copy;
     }
     case TOGGLE_DESCRIPTION: {
@@ -32,81 +31,50 @@ export function reducer(state = initialState, action) {
     }
 
     case REMEMBER_SHOPPING: {
-      console.log(action);
       return {
         ...state,
-        shoppingCard: action.storedShoppingCart,
         products: action.storedData,
       };
     }
 
-    case ADD_TO_SHOPPINGCARD: {
+    case CHANGE_CONTENT_SHOPPINGCARD: {
       let copy = [...state.products];
-      let _shoppingCard = [...state.shoppingCard];
       const indexOf = getIndex(copy, action.id);
 
-      if (indexOf !== -1) {
-        const selectedProduct = copy[indexOf];
-        selectedProduct.quantity = 1;
-        _shoppingCard = [..._shoppingCard, selectedProduct];
-      }
       copy[indexOf].inCard = !copy[indexOf].inCard;
-      setLocalStorage("shoppingCard", _shoppingCard);
-      setLocalStorage("data", copy);
-      return { ...copy, products: copy, shoppingCard: _shoppingCard };
-    }
+      if (copy[indexOf].inCard) {
+        copy[indexOf].quantity = 1;
+      }
 
+      setLocalStorage("data", copy);
+      return { ...copy, products: copy };
+    }
     case VIEW_SHOPPING_CARD: {
-      let _viewShoppingCard = { ...state };
-      _viewShoppingCard.viewShoppingCard = !_viewShoppingCard.viewShoppingCard;
-      return { ...state, viewShoppingCard: _viewShoppingCard.viewShoppingCard };
-    }
-    case DELETE_ITEM: {
-      let _shoppingCard = [...state.shoppingCard];
-      let copy = [...state.products];
-      const indexCard = getIndex(_shoppingCard, action.id);
-      const indexProduct = getIndex(copy, action.id);
-
-      _shoppingCard.splice(indexCard, 1);
-      copy[indexProduct].inCard = !copy[indexProduct].inCard;
-      setLocalStorage("shoppingCard", _shoppingCard);
-      setLocalStorage("data", copy);
-      console.log(copy);
-      return { ...state, products: copy, shoppingCard: _shoppingCard };
+      let copy = { ...state };
+      copy.viewShoppingCard = !copy.viewShoppingCard;
+      return { ...copy };
     }
     case DECREMENT: {
       let copy = [...state.products];
-      let _shoppingCard = [...state.shoppingCard];
-      const indexCard = getIndex(_shoppingCard, action.id);
       const indexProduct = getIndex(copy, action.id);
 
       if (indexProduct !== -1) {
         copy[indexProduct].quantity = copy[indexProduct].quantity - 1;
       }
-      if (indexCard !== -1) {
-        _shoppingCard[indexCard].quantity =
-          _shoppingCard[indexCard].quantity - 1;
-      }
-      setLocalStorage("shoppingCard", _shoppingCard);
+
       setLocalStorage("data", copy);
-      return { ...state, products: copy, shoppingCard: _shoppingCard };
+      return { ...state, products: copy };
     }
     case INCREMENT: {
       let copy = [...state.products];
-      let _shoppingCard = [...state.shoppingCard];
-      const indexCard = getIndex(_shoppingCard, action.id);
       const indexProduct = getIndex(copy, action.id);
 
       if (indexProduct !== -1) {
         copy[indexProduct].quantity = copy[indexProduct].quantity + 1;
       }
-      if (indexCard !== -1) {
-        _shoppingCard[indexCard].quantity =
-          _shoppingCard[indexCard].quantity + 1;
-      }
-      setLocalStorage("shoppingCard", _shoppingCard);
+
       setLocalStorage("data", copy);
-      return { ...state, products: copy, shoppingCard: _shoppingCard };
+      return { ...state, products: copy };
     }
     default:
       return state;

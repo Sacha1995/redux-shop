@@ -32,10 +32,7 @@ export function calculateTotal(shoppingContent) {
 
 export function getQuantity(id, products) {
   const _products = [...products];
-  const indexOf = _products.findIndex((item) => {
-    return item.id === id;
-  });
-
+  const indexOf = getIndex(_products, id);
   let quantity;
   if (indexOf !== -1) {
     quantity = _products[indexOf].quantity;
