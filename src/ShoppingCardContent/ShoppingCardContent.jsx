@@ -15,10 +15,13 @@ const ShoppingCardContent = () => {
     <div className="shoppingCardContent">
       <Description />
       {shoppingCard.map((product) => {
+        console.log(product);
         return (
           <div key={product.id} className="shoppingCardItem">
+            <p>{product.quantity}</p>
             <p className="shoppingCardItemTitle">{product.title}</p>
             <p>£{product.price}</p>
+            <p>£{product.price * product.quantity}</p>
             <img
               src="./bin.svg"
               alt="delete button"

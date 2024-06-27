@@ -136,3 +136,16 @@ img {
 .add {
   background-color: green;
 }
+
+/********* Controls *********/
+.quantity {
+  display: flex;
+  gap: 5px;
+  margin-right: 10px;
+}
+
+.controlsProduct {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

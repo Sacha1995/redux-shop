@@ -1,12 +1,9 @@
 export const getSortedandFiltered = (data, searchStr, select) => {
-  console.log("Re-rendering");
-
   let filtered = [...data];
 
   // filter by search
   if (searchStr) {
     filtered = filtered.filter((product) => {
-      console.log(product.title, searchStr);
       return product.title.toLowerCase().includes(searchStr.toLowerCase());
     });
   }
